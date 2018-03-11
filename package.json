@@ -1,0 +1,42 @@
+{
+  "name": "react-native-card-flip",
+  "version": "1.0.2",
+  "description": "Card flip animation for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhandel/react-native-card-flip.git"
+  },
+  "keywords": [
+    "react-native",
+    "flip",
+    "cards",
+    "card",
+    "rotate",
+    "deck",
+    "card-flip",
+    "flip-card",
+    "react-native-component"
+  ],
+  "author": "Ludwig Handel",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.0.0-beta.5",
+    "react-native": "^0.49.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhandel/react-native-card-flip.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lhandel/react-native-card-flip/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "prop-types": "15.5.10"
+  },
+  "homepage": "https://github.com/lhandel/react-native-card-flip#readme"
+}
