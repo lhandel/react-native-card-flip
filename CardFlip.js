@@ -133,7 +133,7 @@ export default class CardFlip extends Component<Props> {
       opacity: sideAOpacity,
       zIndex: (side === 0)? 1 : 0,
       transform: [
-        { perspective: 800 },
+        { perspective: this.props.perspective },
       ]
     }
     if(rotateOrientation === 'x')
@@ -174,7 +174,7 @@ export default class CardFlip extends Component<Props> {
       opacity: sideBOpacity,
       zIndex: (side === 0)? 0 : 1,
       transform: [
-        { perspective: -800 },
+        { perspective: (-1 * this.props.perspective) },
       ]
     }
 
@@ -217,7 +217,7 @@ export default class CardFlip extends Component<Props> {
     // Handle cardPopup
     const cardZoom = zoom.interpolate({
       inputRange: [0,100],
-      outputRange: [1,  flipZoom],
+      outputRange: [1, (1+flipZoom)],
       extrapolate: 'clamp',
     });
 
@@ -249,8 +249,9 @@ const styles = StyleSheet.create({
 CardFlip.defaultProps = {
   style: {},
   duration: 500,
-  flipZoom: 1.09,
+  flipZoom: 0.09,
   flipDirection: 'y',
+  perspective: 800,
   onFlip: () => {},
 }
 
@@ -260,4 +261,5 @@ CardFlip.propTypes = {
   flipZoom: PropTypes.number,
   flipDirection: PropTypes.string,
   onFlip: PropTypes.func,
+  perspective: PropTypes.number,
 }

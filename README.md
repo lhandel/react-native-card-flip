@@ -33,8 +33,10 @@ import CardFlip from 'react-native-card-flip';
 | --------------------| ------------- | --------------------------------| ------------- | ------------- |
 | style               | object        | container style                 |               | {}            |
 | duration            | number        | flip duration                   |               | 1000          |
-| flipZoom            | number        | zoom level on flipX             |               | 1.09          |
+| flipZoom            | number        | zoom level on flip              |               | 0.09          |
 | flipDirection       | string        | the rotation axis. 'x' or 'y'   |               | 'y'           |
+| perspective         | number        |                                 |               | 800           |
+
 
 
 ## CardFlip events
@@ -49,7 +51,7 @@ import CardFlip from 'react-native-card-flip';
 | flip              | func          | Flips the card |
 
 
-CardFlip in map
+# CardFlip in map
 ```javascript
 {cards.map((item, index) => {
   return (
