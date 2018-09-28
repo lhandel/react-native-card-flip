@@ -17,7 +17,7 @@ export default class CardFlip extends Component<Props> {
       side: 0,
       sides: [],
       progress: new Animated.Value(0),
-      rotation: new Animated.ValueXY({x: 0, y: 0}),
+      rotation: new Animated.ValueXY({x: 50, y: 50}),
       zoom: new Animated.Value(0),
       rotateOrientation: '',
       flipDirection: 'y'
@@ -38,7 +38,107 @@ export default class CardFlip extends Component<Props> {
       flipZoom: nextProps.flipZoom,
       sides: nextProps.children
     });
+  } 
+
+  tip(customConfig){
+    
+    const defaultConfig = { direction: 'left', progress: 0.05, duration: 150 };
+    const config = { ...defaultConfig, ...customConfig}
+    const {direction, progress, duration } = config;
+    
+    const { rotation, side } = this.state;
+    const sequence = [];
+
+    if(direction === 'right'){
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: (side === 0) ? 50 + progress*50 : 90,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+    }else{
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: (side === 0) ? 50 - progress*50 : 90,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+    }
+    sequence.push(Animated.timing(
+      rotation,
+      {
+        toValue: {
+          x: 0,
+          y: (side === 0) ? 50 : 100,
+        },
+        duration,
+        useNativeDriver: true,
+      }
+    ));
+    Animated.sequence(sequence).start();
   }
+
+  jiggle(customConfig = {}){
+
+    const defaultConfig = { count: 2, duration: 100, progress: 0.05 };
+    const config = { ...defaultConfig, ...customConfig}
+    const { count, duration, progress } = config;
+
+    const { rotation, side } = this.state;
+
+    const sequence = [];
+    for (let i = 0; i < count; i++){
+
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: (side === 0) ? 50 + progress*50 : 90,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: (side === 0) ? 50 - progress*50 : 110,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+
+    }
+    sequence.push(Animated.timing(
+      rotation,
+      {
+        toValue: {
+          x: 0,
+          y: (side === 0) ? 50 : 100,
+        },
+        duration,
+        useNativeDriver: true,
+      }
+    ));
+    Animated.sequence(sequence).start();
+  }
+
+
 
   flip() {
     if(this.props.flipDirection == 'y'){
@@ -51,14 +151,13 @@ export default class CardFlip extends Component<Props> {
 
   flipY() {
     const { side }  = this.state;
-
     this.setState({
       side: (side === 0) ? 1 : 0,
       rotateOrientation: 'y',
     });
     this._flipTo({
-      x: 0,
-      y: (side === 0) ? 100 : 0,
+      x: 50,
+      y: (side === 0) ? 100 : 50,
     });
   }
 
@@ -71,8 +170,8 @@ export default class CardFlip extends Component<Props> {
     });
 
     this._flipTo({
-      x: (side === 0) ? 100 : 0,
-      y: 0,
+      y: 50,
+      x: (side === 0) ? 100 : 50,
     });
   }
 
@@ -80,6 +179,7 @@ export default class CardFlip extends Component<Props> {
 
     const { duration, rotation, progress, zoom, side } = this.state;
     this.props.onFlip((side === 0) ? 1 : 0);
+    this.props.onFlipStart((side === 0) ? 1 : 0);
     Animated.parallel([
       Animated.timing(
         progress,
@@ -115,12 +215,14 @@ export default class CardFlip extends Component<Props> {
           useNativeDriver: true,
         }
       )
-    ]).start();
+    ]).start(() => {
+      this.props.onFlipEnd((side === 0) ? 1 : 0);
+    });
 
   }
 
   getCardATransformation(){
-
+    //0, 50, 100
     const { progress, rotation, side, rotateOrientation } = this.state;
 
     const sideAOpacity = progress.interpolate({
@@ -139,8 +241,8 @@ export default class CardFlip extends Component<Props> {
     if(rotateOrientation === 'x')
     {
       const aXRotation = rotation.x.interpolate({
-        inputRange: [0,100],
-        outputRange: ['0deg','180deg'],
+        inputRange: [0, 50, 100, 150],
+        outputRange: ['-180deg', '0deg','180deg','0deg'],
         extrapolate: 'clamp',
       });
       sideATransform.transform.push({ rotateX: aXRotation })
@@ -149,8 +251,8 @@ export default class CardFlip extends Component<Props> {
     {
       // cardA Y-rotation
       const aYRotation = rotation.y.interpolate({
-        inputRange: [0,100],
-        outputRange: ['0deg','180deg'],
+        inputRange: [0, 50, 100, 150],
+        outputRange: ['-180deg','0deg','180deg', '0deg'],
         extrapolate: 'clamp',
       });
       sideATransform.transform.push({ rotateY: aYRotation })
@@ -181,8 +283,8 @@ export default class CardFlip extends Component<Props> {
     if(rotateOrientation === 'x')
     {
       const bXRotation = rotation.x.interpolate({
-        inputRange: [0,100],
-        outputRange: ['360deg','180deg'],
+        inputRange: [0, 50, 100, 150],
+        outputRange: ['0deg','-180deg','-360deg', '180deg'],
         extrapolate: 'clamp',
       });
       sideBTransform.transform.push({ rotateX: bXRotation })
@@ -191,8 +293,8 @@ export default class CardFlip extends Component<Props> {
     {
       // cardB Y-rotation
       const bYRotation = rotation.y.interpolate({
-        inputRange: [0,100],
-        outputRange: ['180deg','0deg'],
+        inputRange: [0, 50, 100, 150],
+        outputRange: ['0deg', '180deg','0deg', '-180deg'],
         extrapolate: 'clamp',
       });
       sideBTransform.transform.push({ rotateY: bYRotation })
@@ -226,7 +328,7 @@ export default class CardFlip extends Component<Props> {
         { scale: cardZoom }
       ]
     }
-
+    
     return (
       <Animated.View style={[this.props.style, scaling]}>
         <Animated.View style={[styles.cardContainer, cardATransform]}>{sides[0]}</Animated.View>
@@ -253,6 +355,8 @@ CardFlip.defaultProps = {
   flipDirection: 'y',
   perspective: 800,
   onFlip: () => {},
+  onFlipStart: () => {},
+  onFlipEnd: () => {},
 }
 
 CardFlip.propTypes = {
@@ -261,5 +365,7 @@ CardFlip.propTypes = {
   flipZoom: PropTypes.number,
   flipDirection: PropTypes.string,
   onFlip: PropTypes.func,
+  onFlipEnd: PropTypes.func,
+  onFlipStart: PropTypes.func,
   perspective: PropTypes.number,
 }

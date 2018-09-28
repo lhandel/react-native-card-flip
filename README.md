@@ -11,8 +11,8 @@ Card flip animation for React Native
 ```
 
 ## Preview
-![App preview](/animation.gif)
-![App preview2](/animation2.gif)
+![App preview](/screenshots/animation.gif)
+![App preview2](/screenshots/animation2.gif)
 
 ```javascript
 import CardFlip from 'react-native-card-flip';
@@ -39,19 +39,42 @@ import CardFlip from 'react-native-card-flip';
 
 
 
+
 ## CardFlip events
 | Props             | type          | description                 |
 | ----------------- | ------------- | --------------------------- |
 | onFlip            | func           | function to be called when a card is fliped. it receives the card-sides index   |
+| onFlipStart       | func           | function to be called when the flip-animation starts. it receives the card-sides index   |
+| onFlipEnd         | func           | function to be called when the flip-animation ends. it receives the card-sides index   |
 
 
 ## CardStack actions
-| Props             | type          | description                 |
-| ----------------- | ------------- | --------------------------- |
-| flip              | func          | Flips the card |
+| Props             | type          | description                 | args                              | default       |
+| ----------------- | ------------- | --------------------------- | --------------------------------- | ------------- |
+| flip              | func          | Flips the card              |                                   |               |
+| tip               | func          | Flips the card              | { direction, progress, duration } | { direction: 'left', progress: 0.05, duration: 150 } |
+| jiggle            | func          | Jiggles the card            | { count, duration, progress }     | { count: 2, duration: 200, progress: 0.05 }|
 
 
-# CardFlip in map
+### jiggle
+![App jiggle](/screenshots/jiggle.gif)
+```javascript
+<CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
+  <TouchableOpacity style={styles.card} onPress={() => this.card.jiggle({ count: 2, duration: 100, progress: 0.05 })} ><Text>AB</Text></TouchableOpacity>
+  <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} ><Text>CD</Text></TouchableOpacity>
+</CardFlip>
+```
+
+### tip
+![App tip](/screenshots/tip.gif)
+```javascript
+<CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
+  <TouchableOpacity style={styles.card} onPress={() => this.card.tip({ direction: 'right', duration: 150 })} ><Text>AB</Text></TouchableOpacity>
+  <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} ><Text>CD</Text></TouchableOpacity>
+</CardFlip>
+```
+
+## CardFlip in map
 ```javascript
 {cards.map((item, index) => {
   return (
