@@ -38,5 +38,6 @@
   "dependencies": {
     "prop-types": "15.5.10"
   },
-  "homepage": "https://github.com/lhandel/react-native-card-flip#readme"
+  "homepage": "https://github.com/lhandel/react-native-card-flip#readme",
+  "types": "./index.d.ts"
 }
