@@ -12,7 +12,7 @@ export default class CardFlip extends Component<Props> {
 
   constructor(props) {
     super(props);
-    this.state ={
+    this.state = {
       duration: 5000,
       side: 0,
       sides: [],
@@ -21,7 +21,7 @@ export default class CardFlip extends Component<Props> {
       zoom: new Animated.Value(0),
       rotateOrientation: '',
       flipDirection: 'y'
-    }
+    };
   }
 
   componentDidMount(){
@@ -92,7 +92,7 @@ export default class CardFlip extends Component<Props> {
 
     const defaultConfig = { count: 2, duration: 100, progress: 0.05 };
     const config = { ...defaultConfig, ...customConfig}
-    const { count, duration, progress } = config;
+    const { count, duration, progress } = config;
 
     const { rotation, side } = this.state;
 
@@ -151,27 +151,25 @@ export default class CardFlip extends Component<Props> {
 
   flipY() {
     const { side }  = this.state;
-    this.setState({
-      side: (side === 0) ? 1 : 0,
-      rotateOrientation: 'y',
-    });
     this._flipTo({
       x: 50,
       y: (side === 0) ? 100 : 50,
+    });
+    this.setState({
+      side: (side === 0) ? 1 : 0,
+      rotateOrientation: 'y',
     });
   }
 
   flipX() {
     const { side }  = this.state;
-
-    this.setState({
-      side: (side === 0) ? 1 : 0,
-      rotateOrientation: 'x',
-    });
-
     this._flipTo({
       y: 50,
       x: (side === 0) ? 100 : 50,
+    });
+    this.setState({
+      side: (side === 0) ? 1 : 0,
+      rotateOrientation: 'x',
     });
   }
 
@@ -308,7 +306,7 @@ export default class CardFlip extends Component<Props> {
   render() {
 
     const { side, progress, rotateOrientation, zoom, sides } = this.state;
-    const { flipZoom } = this.props
+    const { flipZoom } = this.props
 
     // Handle cardA transformation
     const cardATransform = this.getCardATransformation()
