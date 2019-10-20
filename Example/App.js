@@ -1,37 +1,33 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
+  TouchableOpacity,
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity
+  Text,
 } from 'react-native';
 
 import CardFlip from 'react-native-card-flip';
 
-
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
-          <TouchableOpacity activeOpacity={1} style={[styles.card, styles.card1]} onPress={() => this.card.flip()} >
-            <Text style={styles.label}>AB</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} style={[styles.card, styles.card2]} onPress={() => this.card.flip()} >
-            <Text style={styles.label}>CD</Text>
-          </TouchableOpacity>
-        </CardFlip>
-      </View>
-    );
-  }
-}
+const App: () => React$Node = () => {
+  return (
+    <View style={styles.container}>
+      <CardFlip style={styles.cardContainer} ref={card => (this.card = card)}>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={[styles.card, styles.card1]}
+          onPress={() => this.card.flip()}>
+          <Text style={styles.label}>AB</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={[styles.card, styles.card2]}
+          onPress={() => this.card.flip()}>
+          <Text style={styles.label}>CD</Text>
+        </TouchableOpacity>
+      </CardFlip>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -40,11 +36,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  cardContainer:{
+  cardContainer: {
     width: 320,
     height: 470,
   },
-  card:{
+  card: {
     width: 320,
     height: 470,
     backgroundColor: '#FE474C',
@@ -52,9 +48,9 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
-    shadowOpacity:0.5,
+    shadowOpacity: 0.5,
   },
   card1: {
     backgroundColor: '#FE474C',
@@ -71,3 +67,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
+export default App;
