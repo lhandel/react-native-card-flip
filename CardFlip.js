@@ -15,7 +15,6 @@ export default class CardFlip extends Component<Props> {
       zoom: new Animated.Value(0),
       rotateOrientation: "",
       flipDirection: "y"
-    };
   }
 
   componentDidMount() {
@@ -81,6 +80,7 @@ export default class CardFlip extends Component<Props> {
   jiggle(customConfig = {}) {
     const defaultConfig = { count: 2, duration: 100, progress: 0.05 };
     const config = { ...defaultConfig, ...customConfig };
+
     const { count, duration, progress } = config;
 
     const { rotation, side } = this.state;
@@ -136,6 +136,7 @@ export default class CardFlip extends Component<Props> {
       side: side === 0 ? 1 : 0,
       rotateOrientation: "y"
     });
+
     this._flipTo({
       x: 50,
       y: side === 0 ? 100 : 50
@@ -149,10 +150,17 @@ export default class CardFlip extends Component<Props> {
       side: side === 0 ? 1 : 0,
       rotateOrientation: "x"
     });
+  }
 
+  flipX() {
+    const { side }  = this.state;
     this._flipTo({
       y: 50,
       x: side === 0 ? 100 : 50
+    });
+    this.setState({
+      side: (side === 0) ? 1 : 0,
+      rotateOrientation: 'x',
     });
   }
 
@@ -334,3 +342,4 @@ CardFlip.propTypes = {
   onFlipStart: PropTypes.func,
   perspective: PropTypes.number
 };
+
