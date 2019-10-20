@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { polyfill } from 'react-lifecycles-compat';
 
 import { Platform, StyleSheet, Animated } from "react-native";
 
-export default class CardFlip extends Component<Props> {
+class CardFlip extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +16,22 @@ export default class CardFlip extends Component<Props> {
       zoom: new Animated.Value(0),
       rotateOrientation: "",
       flipDirection: "y"
+    }
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.duration !== prevState.duration ||
+      nextProps.flipZoom !== prevState.flipZoom ||
+      nextProps.children !== prevState.sides) {
+      return {
+        duration: nextProps.duration,
+        flipZoom: nextProps.flipZoom,
+        sides: nextProps.children
+      }
+    }
+    return null;
+  }
+
 
   componentDidMount() {
     this.setState({
@@ -25,13 +41,6 @@ export default class CardFlip extends Component<Props> {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      duration: nextProps.duration,
-      flipZoom: nextProps.flipZoom,
-      sides: nextProps.children
-    });
-  }
 
   tip(customConfig) {
     const defaultConfig = { direction: "left", progress: 0.05, duration: 150 };
@@ -153,7 +162,7 @@ export default class CardFlip extends Component<Props> {
   }
 
   flipX() {
-    const { side }  = this.state;
+    const { side } = this.state;
     this._flipTo({
       y: 50,
       x: side === 0 ? 100 : 50
@@ -323,9 +332,9 @@ CardFlip.defaultProps = {
   flipZoom: 0.09,
   flipDirection: "y",
   perspective: 800,
-  onFlip: () => {},
-  onFlipStart: () => {},
-  onFlipEnd: () => {}
+  onFlip: () => { },
+  onFlipStart: () => { },
+  onFlipEnd: () => { }
 };
 
 CardFlip.propTypes = {
@@ -343,3 +352,5 @@ CardFlip.propTypes = {
   perspective: PropTypes.number
 };
 
+polyfill(CardFlip)
+export default CardFlip 
