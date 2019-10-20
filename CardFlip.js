@@ -141,23 +141,13 @@ class CardFlip extends Component<Props> {
 
   flipY() {
     const { side } = this.state;
-    this.setState({
-      side: side === 0 ? 1 : 0,
-      rotateOrientation: "y"
-    });
-
     this._flipTo({
       x: 50,
       y: side === 0 ? 100 : 50
     });
-  }
-
-  flipX() {
-    const { side } = this.state;
-
     this.setState({
       side: side === 0 ? 1 : 0,
-      rotateOrientation: "x"
+      rotateOrientation: "y"
     });
   }
 
