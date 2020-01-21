@@ -252,21 +252,18 @@ class CardFlip extends Component<Props> {
       });
       sideBTransform.transform.push({ rotateX: bXRotation });
     } else {
-      if (Platform.OS === "ios") {
-        // cardB Y-rotation
-        bYRotation = rotation.y.interpolate({
+      // cardB Y-rotation
+      const bYRotation = Platform.OS === "ios" ?
+        rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
           outputRange: ["0deg", "180deg", "0deg", "-180deg"],
           extrapolate: "clamp"
-        });
-      } else {
-        // cardB Y-rotation
-        bYRotation = rotation.y.interpolate({
+        }) :
+        rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
           outputRange: ["0deg", "-180deg", "0deg", "180deg"],
           extrapolate: "clamp"
         });
-      }
       sideBTransform.transform.push({ rotateY: bYRotation });
     }
     return sideBTransform;
