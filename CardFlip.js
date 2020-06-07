@@ -243,7 +243,7 @@ class CardFlip extends Component<Props> {
       zIndex: side === 0 ? 0 : 1,
       transform: [{ perspective: -1 * this.props.perspective }]
     };
-
+    let bYRotation;
     if (rotateOrientation === "x") {
       const bXRotation = rotation.x.interpolate({
         inputRange: [0, 50, 100, 150],
