@@ -3,6 +3,7 @@ Card flip animation for React Native
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/lhandel/react-native-card-flip/issues)
 [![npm version](https://badge.fury.io/js/react-native-card-flip.svg)](https://badge.fury.io/js/react-native-card-flip)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-card-flip.svg)](https://badge.fury.io/js/react-native-card-flip)
 
 ## Installation
 
