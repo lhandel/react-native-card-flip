@@ -16,12 +16,26 @@ const App: () => React$Node = () => {
           activeOpacity={1}
           style={[styles.card, styles.card1]}
           onPress={() => this.card.flip()}>
-          <Text style={styles.label}>AB</Text>
+          <Text style={styles.label}>Regular</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={1}
           style={[styles.card, styles.card2]}
           onPress={() => this.card.flip()}>
+          <Text style={styles.label}>CD</Text>
+        </TouchableOpacity>
+      </CardFlip>
+      <CardFlip flipReverse style={[styles.cardContainer, {marginTop: 30}]} ref={card => (this.card2 = card)}>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={[styles.card, styles.card1]}
+          onPress={() => this.card2.flip()}>
+          <Text style={styles.label}>flipReverse</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={[styles.card, styles.card2]}
+          onPress={() => this.card2.flip()}>
           <Text style={styles.label}>CD</Text>
         </TouchableOpacity>
       </CardFlip>
