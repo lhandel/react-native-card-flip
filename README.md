@@ -36,6 +36,7 @@ import CardFlip from 'react-native-card-flip';
 | duration            | number        | flip duration                   |               | 1000          |
 | flipZoom            | number        | zoom level on flip              |               | 0.09          |
 | flipDirection       | string        | the rotation axis. 'x' or 'y'   |               | 'y'           |
+| flipReverse         | boolean       | reverses flip direction         |               | false         |
 | perspective         | number        |                                 |               | 800           |
 
 

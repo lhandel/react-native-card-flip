@@ -10,6 +10,7 @@ export type FlipCardProps = {
   duration?: number;
   flipZoom?: number;
   flipDirection?: FlipDirection;
+  flipReverse?: boolean;
   onFlip?: (index: number) => void;
   onFlipEnd?: (index: number) => void;
   onFlipStart?: (index: number) => void;

@@ -13,7 +13,7 @@
     "react": "16.9.0",
     "react-lifecycles-compat": "^3.0.4",
     "react-native": "0.61.2",
-    "react-native-card-flip": "^1.0.4"
+    "react-native-card-flip": "../"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
