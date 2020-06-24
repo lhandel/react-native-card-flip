@@ -198,7 +198,7 @@ class CardFlip extends Component<Props> {
 
   getCardATransformation() {
     //0, 50, 100
-    const { progress, rotation, side, rotateOrientation } = this.state;
+    const { progress, rotation, side, rotateOrientation, flipReverse } = this.state;
 
     const sideAOpacity = progress.interpolate({
       inputRange: [50, 51],
@@ -214,7 +214,7 @@ class CardFlip extends Component<Props> {
     if (rotateOrientation === "x") {
       const aXRotation = rotation.x.interpolate({
         inputRange: [0, 50, 100, 150],
-        outputRange: this.props.flipReverse ? ["180deg", "0deg", "-180deg", "0deg"] : ["-180deg", "0deg", "180deg", "0deg"],
+        outputRange: flipReverse ? ["180deg", "0deg", "-180deg", "0deg"] : ["-180deg", "0deg", "180deg", "0deg"],
         extrapolate: "clamp"
       });
       sideATransform.transform.push({ rotateX: aXRotation });
@@ -222,7 +222,7 @@ class CardFlip extends Component<Props> {
       // cardA Y-rotation
       const aYRotation = rotation.y.interpolate({
         inputRange: [0, 50, 100, 150],
-        outputRange: this.props.flipReverse ? ["180deg", "0deg", "-180deg", "0deg"] : ["-180deg", "0deg", "180deg", "0deg"],
+        outputRange: flipReverse ? ["180deg", "0deg", "-180deg", "0deg"] : ["-180deg", "0deg", "180deg", "0deg"],
         extrapolate: "clamp"
       });
       sideATransform.transform.push({ rotateY: aYRotation });
@@ -231,7 +231,7 @@ class CardFlip extends Component<Props> {
   }
 
   getCardBTransformation() {
-    const { progress, rotation, side, rotateOrientation } = this.state;
+    const { progress, rotation, side, rotateOrientation, flipReverse } = this.state;
 
     const sideBOpacity = progress.interpolate({
       inputRange: [50, 51],
@@ -248,7 +248,7 @@ class CardFlip extends Component<Props> {
     if (rotateOrientation === "x") {
       const bXRotation = rotation.x.interpolate({
         inputRange: [0, 50, 100, 150],
-        outputRange: this.props.flipReverse ? ["0deg", "180deg", "360deg", "-180deg"] : ["0deg", "-180deg", "-360deg", "180deg"],
+        outputRange: flipReverse ? ["0deg", "180deg", "360deg", "-180deg"] : ["0deg", "-180deg", "-360deg", "180deg"],
         extrapolate: "clamp"
       });
       sideBTransform.transform.push({ rotateX: bXRotation });
@@ -257,14 +257,14 @@ class CardFlip extends Component<Props> {
         // cardB Y-rotation
         bYRotation = rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
-          outputRange: this.props.flipReverse ? ["0deg", "-180deg", "0deg", "180deg"] : ["0deg", "180deg", "0deg", "-180deg"],
+          outputRange: flipReverse ? ["0deg", "-180deg", "0deg", "180deg"] : ["0deg", "180deg", "0deg", "-180deg"],
           extrapolate: "clamp"
         });
       } else {
         // cardB Y-rotation
         bYRotation = rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
-          outputRange: this.props.flipReverse ? ["0deg", "180deg", "0deg", "-180deg"] : ["0deg", "-180deg", "0deg", "180deg"],
+          outputRange: flipReverse ? ["0deg", "180deg", "0deg", "-180deg"] : ["0deg", "-180deg", "0deg", "180deg"],
           extrapolate: "clamp"
         });
       }
