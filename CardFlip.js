@@ -208,7 +208,7 @@ class CardFlip extends Component<Props> {
     const sideATransform = {
       opacity: sideAOpacity,
       zIndex: side === 0 ? 1 : 0,
-      transform: [{ perspective: this.props.perspective }]
+      transform: []
     };
     if (rotateOrientation === "x") {
       const aXRotation = rotation.x.interpolate({
@@ -226,6 +226,9 @@ class CardFlip extends Component<Props> {
       });
       sideATransform.transform.push({ rotateY: aYRotation });
     }
+    if (Platform.OS === "android") {
+      sideATransform.transform.push({ perspective: this.props.perspective });
+    }
     return sideATransform;
   }
 
@@ -241,7 +244,7 @@ class CardFlip extends Component<Props> {
     const sideBTransform = {
       opacity: sideBOpacity,
       zIndex: side === 0 ? 0 : 1,
-      transform: [{ perspective: -1 * this.props.perspective }]
+      transform: []
     };
     let bYRotation;
     if (rotateOrientation === "x") {
@@ -268,6 +271,9 @@ class CardFlip extends Component<Props> {
         });
       }
       sideBTransform.transform.push({ rotateY: bYRotation });
+    }
+    if (Platform.OS === "android") {
+      sideBTransform.transform.push({ perspective: -1 * this.props.perspective });
     }
     return sideBTransform;
   }
