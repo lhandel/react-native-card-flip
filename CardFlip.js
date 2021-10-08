@@ -295,7 +295,7 @@ class CardFlip extends Component<Props> {
 
     return (
       <Animated.View style={[this.props.style, scaling]}>
-        <Animated.View style={[styles.cardContainer, cardATransform]}>
+        <Animated.View style={[cardATransform]}>
           {sides[0]}
         </Animated.View>
         <Animated.View style={[styles.cardContainer, cardBTransform]}>
